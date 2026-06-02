@@ -1,0 +1,177 @@
+.card2 {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.card-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: var(--todo-green-text, #166534);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--todo-text, #1f2937);
+  line-height: 1.4;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8rem;
+}
+
+.card-meta-time {
+  color: var(--todo-green-text, #166534);
+  font-weight: 500;
+}
+
+.card-meta-duration {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--todo-green-text, #166534);
+  opacity: 0.85;
+}
+
+.card-clock {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.card-clock::before,
+.card-clock::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+.card-clock::before {
+  width: 1.5px;
+  height: 4px;
+  left: 50%;
+  top: 3px;
+  transform: translateX(-50%);
+}
+
+.card-clock::after {
+  width: 4px;
+  height: 1.5px;
+  left: 50%;
+  top: 50%;
+  transform-origin: left center;
+}
+
+.card-action {
+  align-self: flex-start;
+  font-size: 0.875rem;
+  padding: 6px 14px;
+  border-radius: 8px;
+  color: var(--todo-text, #1f2937);
+  background: var(--todo-card, #fff);
+  border: 1px solid var(--card-border, #e5e7eb);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.card-action:hover {
+  background: var(--todo-purple-light, #f9fafb);
+  border-color: var(--card-border, #d1d5db);
+}
+
+.card-action--primary {
+  color: #fff;
+  background: var(--todo-purple-dark, #8b7cf7);
+  border-color: transparent;
+}
+
+.card-action--primary:hover {
+  background: var(--todo-purple, #7c6cf0);
+}
+
+.card-action--ghost {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  color: var(--todo-muted, #9ca3af);
+  background: transparent;
+  border: none;
+}
+
+.card-action--ghost:hover {
+  color: #ef4444;
+  background: transparent;
+}
+
+.card-ip {
+  border-color: var(--card-ip-border);
+  background: var(--card-ip-bg);
+}
+
+.card-ip .card-meta-time {
+  color: var(--todo-purple-dark, #8b7cf7);
+}
+
+.card-ip .card-meta-duration {
+  color: var(--todo-purple-dark, #8b7cf7);
+}
+
+.card-done {
+  border-color: var(--card-done-border);
+  background: var(--card-done-bg);
+}
+
+.card-done .card-title {
+  color: var(--todo-green-text, #166534);
+}
+
+.card-done .card-meta-time,
+.card-done .card-meta-duration {
+  color: var(--todo-green-text, #166534);
+}
+
+html.dark .card-done .card-title,
+html.dark .card-done .card-meta-time,
+html.dark .card-done .card-meta-duration {
+  color: #ad1457;
+}
+
+html.dark .card-ip .card-meta-time,
+html.dark .card-ip .card-meta-duration {
+  color: #c2185b;
+}
