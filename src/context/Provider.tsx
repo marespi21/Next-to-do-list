@@ -2,6 +2,7 @@
 
 import { ReactNode, useEffect, useState } from "react";
 import { ContextGlobal } from "./Context";
+import { I18nProvider } from "./i18nContext";
 
 interface ProviderProps {
   children: ReactNode;
@@ -36,7 +37,7 @@ export const Provider = ({ children }: ProviderProps) => {
     <ContextGlobal.Provider
       value={{ name, pi, contador, setContador, isDarkMode, toggleTheme }}
     >
-      {children}
+      <I18nProvider>{children}</I18nProvider>
     </ContextGlobal.Provider>
   );
 };

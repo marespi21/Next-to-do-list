@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import "../styles/Card.css";
+import { useTranslation } from "@/src/context/i18nContext";
 
 interface CardProps {
   description: string;
@@ -14,23 +15,6 @@ interface CardProps {
   handleDelete: (id: string) => void;
 }
 
-function formatRelativeTime(timestamp: number): string {
-  const diffSec = Math.floor((Date.now() - timestamp) / 1000);
-  if (diffSec < 60) return "ahora";
-  const diffMin = Math.floor(diffSec / 60);
-  if (diffMin < 60) return `hace ${diffMin}m`;
-  const diffHr = Math.floor(diffMin / 60);
-  return `hace ${diffHr}h`;
-}
-
-function formatDuration(start: number, end: number): string {
-  const sec = Math.floor((end - start) / 1000);
-  if (sec < 60) return `${sec}s`;
-  const min = Math.floor(sec / 60);
-  const remSec = sec % 60;
-  return remSec > 0 ? `${min}m ${remSec}s` : `${min}m`;
-}
-
 export const Card = ({
   description,
   state,
@@ -41,7 +25,25 @@ export const Card = ({
   handleEnd,
   handleDelete,
 }: CardProps) => {
+  const { t } = useTranslation();
   const [timeInProgress, setTimeInProgress] = useState("");
+
+  const formatRelativeTime = (timestamp: number): string => {
+    const diffSec = Math.floor((Date.now() - timestamp) / 1000);
+    if (diffSec < 60) return t.card.now;
+    const diffMin = Math.floor(diffSec / 60);
+    if (diffMin < 60) return t.card.agoMinutes.replace("{n}", String(diffMin));
+    const diffHr = Math.floor(diffMin / 60);
+    return t.card.agoHours.replace("{n}", String(diffHr));
+  };
+
+  const formatDuration = (start: number, end: number): string => {
+    const sec = Math.floor((end - start) / 1000);
+    if (sec < 60) return `${sec}s`;
+    const min = Math.floor(sec / 60);
+    const remSec = sec % 60;
+    return remSec > 0 ? `${min}m ${remSec}s` : `${min}m`;
+  };
 
   useEffect(() => {
     if (!startDate || state !== "inProgress") {
@@ -72,7 +74,7 @@ export const Card = ({
 
         {state === "inProgress" && startDate && (
           <div className="card-meta">
-            <span className="card-meta-time">en curso</span>
+            <span className="card-meta-time">{t.card.inProgress}</span>
             <span className="card-meta-duration">
               <span className="card-clock" aria-hidden />
               {timeInProgress}
@@ -102,7 +104,7 @@ export const Card = ({
               handleStart(id);
             }}
           >
-            Iniciar tarea
+            {t.card.start}
           </button>
         )}
 
@@ -114,7 +116,7 @@ export const Card = ({
               handleEnd(id);
             }}
           >
-            Finalizar tarea
+            {t.card.finish}
           </button>
         )}
 
@@ -126,7 +128,7 @@ export const Card = ({
               handleDelete(id);
             }}
           >
-            Eliminar
+            {t.card.delete}
           </button>
         )}
       </div>

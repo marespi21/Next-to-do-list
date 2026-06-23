@@ -11,11 +11,15 @@
   "dependencies": {
     "@heroui/react": "^3.1.0",
     "@heroui/styles": "^3.1.0",
+    "axios": "^1.18.0",
+    "cloudinary": "^2.10.0",
     "mongoose": "^9.6.2",
     "next": "16.2.6",
     "nodemailer": "^8.0.10",
+    "openai": "^6.44.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-toastify": "^11.1.0"
   },
   "devDependencies": {
     "@gravity-ui/icons": "^2.18.0",

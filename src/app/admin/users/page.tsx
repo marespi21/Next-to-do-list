@@ -1,28 +1,32 @@
-"use client"
+"use client";
+
 import { useRouter } from "next/navigation";
+import { useTranslation } from "@/src/context/i18nContext";
 
 const AdminUsers = () => {
+  const { t } = useTranslation();
+  const router = useRouter();
 
-    const router = useRouter();
+  return (
+    <div id="root" className="todo-app">
+      <header className="todo-header">
+        <h1>{t.admin.title}</h1>
+      </header>
 
-    const goBack = () => {
-        router.back()
-    }
+      <div className="todo-panel todo-content-block">
+        <p>{t.admin.table}</p>
 
-    const goHome = ()=>{
-        router.push("/")
-    }
-
-    return (
-        <div>
-        <h1>Administración de ususarios</h1>
-  
-        <div>Tabla</div>
-  
-          <button className="btn-back mr-2.5" onClick={goBack} > Back </button>
-          <button className="btn-back" onClick={goHome}> Home </button>
+        <div className="todo-page-actions todo-actions">
+          <button type="button" className="btn-add" onClick={() => router.back()}>
+            {t.admin.back}
+          </button>
+          <button type="button" className="btn-add btn-add--ghost" onClick={() => router.push("/")}>
+            {t.admin.home}
+          </button>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
 export default AdminUsers;

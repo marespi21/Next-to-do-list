@@ -1,10 +1,11 @@
 "use client";
 
-import { Button, Chip } from "@heroui/react";
+import { Chip } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { ContextGlobal } from "@/src/context/Context";
 import { getUsers } from "@/src/services/users";
+import { useTranslation } from "@/src/context/i18nContext";
 
 interface personProps {
   name: string;
@@ -13,6 +14,7 @@ interface personProps {
 }
 
 const User = () => {
+  const { t } = useTranslation();
   const [person, setPerson] = useState<personProps>();
   const { name, pi } = useContext(ContextGlobal);
   const router = useRouter();
@@ -26,27 +28,47 @@ const User = () => {
     fetchData();
   }, []);
 
-  const goToAdmin = () => {
-    router.push("/admin/users");
-  };
-
-  const goToBack = () => {
-    router.back();
-  };
-
   return (
-    <>
-      <h1>Vista de Users</h1>
-      <div>La persona es: {person?.name}</div>
-      <button onClick={goToAdmin}>Ir a admin</button>
+    <div id="root" className="todo-app">
+      <header className="todo-header">
+        <h1>{t.user.title}</h1>
+      </header>
 
-      <Button variant="danger" onPress={goToBack}>
-        Ir Atras
-      </Button>
+      <div className="todo-panel todo-content-block">
+        <p>
+          {t.user.person} {person?.name}
+        </p>
 
-      <Chip>{name}</Chip>
-      <Chip>{pi}</Chip>
-    </>
+        <div className="todo-page-actions todo-actions">
+          <button
+            type="button"
+            className="btn-add"
+            onClick={() => router.push("/admin/users")}
+          >
+            {t.user.goToAdmin}
+          </button>
+          <button
+            type="button"
+            className="btn-add btn-add--ghost"
+            onClick={() => router.back()}
+          >
+            {t.common.back}
+          </button>
+          <button
+            type="button"
+            className="btn-add btn-add--ghost"
+            onClick={() => router.push("/")}
+          >
+            {t.common.home}
+          </button>
+        </div>
+
+        <div className="todo-actions">
+          <Chip>{name}</Chip>
+          <Chip>{pi}</Chip>
+        </div>
+      </div>
+    </div>
   );
 };
 

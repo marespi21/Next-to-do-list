@@ -9,6 +9,7 @@ import {
   getTodolist,
   updateTask,
 } from "../services/todolist";
+import { useTranslation } from "@/src/context/i18nContext";
 
 interface todoListProps {
   id: string;
@@ -20,6 +21,7 @@ interface todoListProps {
 
 export default function Home() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [valor, setValor] = useState("");
   const [todoList, setTodoList] = useState<todoListProps[]>([]);
 
@@ -118,17 +120,29 @@ export default function Home() {
     router.push("/admin/users");
   };
 
+  const goToLoadImg = () => {
+    router.push("/loadimg");
+  };
+
+  const goToImgList = () => {
+    router.push("/imglist");
+  };
+
+  const goToAiWriter = () => {
+    router.push("/ai-writer");
+  };
+
   return (
     <div id="root" className="todo-app">
       <header className="todo-header">
-        <h1>To-Do List</h1>
-        <p className="todo-subtitle">Organiza tu día, una tarea a la vez.</p>
+        <h1>{t.home.title}</h1>
+        <p className="todo-subtitle">{t.home.subtitle}</p>
       </header>
 
       <div className="todo-form">
         <input
           type="text"
-          placeholder="Agregar nueva tarea..."
+          placeholder={t.home.placeholder}
           value={valor}
           onChange={(e) => setValor(e.target.value)}
           onKeyDown={(e) => {
@@ -139,10 +153,19 @@ export default function Home() {
           <span className="btn-add-icon" aria-hidden>
             +
           </span>
-          Agregar
+          {t.common.add}
         </button>
         <button type="button" className="btn-add" onClick={goToAdmin}>
-          Ir a Admin
+          {t.common.goToAdmin}
+        </button>
+        <button type="button" className="btn-add" onClick={goToLoadImg}>
+          {t.images.uploadNew}
+        </button>
+        <button type="button" className="btn-add" onClick={goToImgList}>
+          {t.images.viewList}
+        </button>
+        <button type="button" className="btn-add" onClick={goToAiWriter}>
+          {t.ai.open}
         </button>
       </div>
 
@@ -150,12 +173,12 @@ export default function Home() {
         <section className="todo-column todo-column--pending">
           <div className="column-header">
             <span className="column-icon column-icon--pending" aria-hidden />
-            <h2>PENDIENTES</h2>
+            <h2>{t.home.pending}</h2>
             <span className="column-badge">{pendingTasks.length}</span>
           </div>
           <div className="column-body">
             {pendingTasks.length === 0 ? (
-              <p className="column-empty">No hay tareas pendientes</p>
+              <p className="column-empty">{t.home.noPending}</p>
             ) : (
               pendingTasks.map(renderCard)
             )}
@@ -165,14 +188,14 @@ export default function Home() {
         <section className="todo-column todo-column--done">
           <div className="column-header">
             <span className="column-icon column-icon--done" aria-hidden />
-            <h2>COMPLETADAS</h2>
+            <h2>{t.home.done}</h2>
             <span className="column-badge column-badge--done">
               {doneTasks.length}
             </span>
           </div>
           <div className="column-body">
             {doneTasks.length === 0 ? (
-              <p className="column-empty">No hay tareas completadas</p>
+              <p className="column-empty">{t.home.noDone}</p>
             ) : (
               doneTasks.map(renderCard)
             )}
